@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNC-student Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/frontend/image/pnc.jpg">
+</head>
+<body>
+    <div class="container">
+        <div class="header-main">
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <header>
+            <img src="/frontend/image/pnc.jpg" alt="PNC Logo">
+            <div class="header-text">
+                <h1>Student Management System In PNC</h1>
+                <p>Students name, age, department, salary, email</p>
+            </div>
+        </header>
+
+        <!-- Add Employee Form -->
+        <div class="form-section">
+            <h2>Add New Employee</h2>
+            <form id="employeeForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="number" id="age" placeholder="Age" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="department" placeholder="Department" required>
+                    <input type="number" id="salary" placeholder="Salary" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                    <button type="submit">Add Employee</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Employee List -->
+        <div class="employees-section">
+            <h2>Employees</h2>
+            <div class="controls">
+                <button onclick="loadEmployees()">Refresh</button>
+                <button onclick="exportCSV()">Export CSV</button>
+                <button onclick="exportJSON()">Export JSON</button>
+            </div>
+            <div id="employeesList" class="employees-list">
+                <!-- Employees will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Loading and Error Messages -->
+        <div id="loading" class="loading hidden">Loading...</div>
+        <div id="error" class="error hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
