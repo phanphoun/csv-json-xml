@@ -182,5 +182,74 @@ def export_json():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# Add this new function to handle contact form submissions
+@app.route('/api/contact', methods=['POST'])
+def submit_contact():
+    try:
+        data = request.json
+        required_fields = ['name', 'email', 'subject', 'message']
+        
+        # Validate required fields
+        for field in required_fields:
+            if field not in data or not data[field].strip():
+                return jsonify({'error': f'Missing required field: {field}'}), 400
+        
+        # Create data directory if it doesn't exist
+        os.makedirs('data', exist_ok=True)
+        
+        # Create or append to contact submissions file
+        contact_file = 'data/contact_submissions.csv'
+        file_exists = os.path.exists(contact_file)
+        
+        import csv
+        from datetime import datetime
+        
+        # Generate a new ID
+        new_id = 1
+        if file_exists:
+            with open(contact_file, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                rows = list(reader)
+                if rows:
+                    new_id = max(int(row['id']) for row in rows) + 1
+        
+        # Prepare new submission
+        new_submission = {
+            'id': str(new_id),
+            'timestamp': datetime.now().isoformat(),
+            'name': data['name'].strip(),
+            'email': data['email'].strip(),
+            'subject': data['subject'].strip(),
+            'message': data['message'].strip()
+        }
+        
+        # Write to CSV
+        with open(contact_file, 'a', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=['id', 'timestamp', 'name', 'email', 'subject', 'message'])
+            if not file_exists or os.path.getsize(contact_file) == 0:
+                writer.writeheader()
+            writer.writerow(new_submission)
+        
+        return jsonify({'message': 'Thank you for your message! We will get back to you soon.'}), 201
+        
+    except Exception as e:
+        print(f"Error processing contact form: {str(e)}")
+        return jsonify({'error': 'An error occurred while processing your request'}), 500
+
+# Add this endpoint to view all contact submissions (for admin/developer)
+@app.route('/api/admin/contact-submissions', methods=['GET'])
+def get_contact_submissions():
+    try:
+        contact_file = 'data/contact_submissions.csv'
+        if not os.path.exists(contact_file):
+            return jsonify([])
+            
+        import pandas as pd
+        df = pd.read_csv(contact_file)
+        return jsonify(df.to_dict('records'))
+    except Exception as e:
+        print(f"Error retrieving contact submissions: {str(e)}")
+        return jsonify({'error': 'Failed to retrieve contact submissions'}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
