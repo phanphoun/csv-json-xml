@@ -6,38 +6,302 @@
     <title>About - PNC Student Management System</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/frontend/image/pnc.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, var(--secondary-color), #1a252f);
+            color: white;
+            padding: 5rem 1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            opacity: 0.1;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            animation: fadeInUp 1s ease;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            position: relative;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
         .about-content {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 20px 60px;
+        }
+
+        .mission-section, .features-section, .team-section, .stats-section {
             background: white;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .about-content h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+
+        .mission-section:hover, .features-section:hover, .team-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
             text-align: center;
         }
-        .about-content p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-            color: #333;
+
+        .team-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
-        .features {
-            margin: 30px 0;
+
+        .team-member:hover .team-avatar {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-        .features h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
+
+        .team-member h4 {
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
         }
-        .features ul {
-            list-style-type: disc;
-            padding-left: 20px;
+
+        .team-role {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: block;
         }
-        .features li {
-            margin-bottom: 10px;
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .stat-item:hover .stat-number,
+        .stat-item:hover .stat-label {
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, var(--primary-color), #2980b9);
+            color: white;
+            border-radius: 10px;
+            margin: 3rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: var(--primary-color);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .features-grid, .team-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-section, .features-section, .team-section, .stats-section {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -52,30 +316,127 @@
         </nav>
     </div>
 
+    <div class="about-hero">
+        <h1>Empowering Education Through Technology</h1>
+        <p>Transforming the way educational institutions manage student data with our comprehensive Student Management System</p>
+    </div>
+
     <div class="container">
-        <div class="about-content">
-            <h1>About PNC Student Management System</h1>
-            
-            <p>Welcome to the PNC Student Management System, a comprehensive solution designed to streamline student record management at Passerelles Numériques Cambodia (PNC).</p>
-            
-            <div class="features">
-                <h2>Our Mission</h2>
-                <p>Our mission is to provide an efficient, user-friendly platform for managing student records, enabling administrators to focus on what matters most - supporting student success.</p>
-                
-                <h2>Key Features</h2>
-                <ul>
-                    <li>Efficient student record management</li>
-                    <li>Real-time data access and updates</li>
-                    <li>Secure data storage and backup</li>
-                    <li>Easy data export in multiple formats</li>
-                    <li>Responsive design for all devices</li>
-                </ul>
+        <section class="mission-section">
+            <h2 class="section-title">Our Mission</h2>
+            <p>At PNC Student Management System, we're committed to revolutionizing educational administration by providing an intuitive, efficient, and secure platform that enables institutions to focus on what truly matters - delivering exceptional education. Our mission is to bridge the gap between technology and education, creating tools that empower educators, administrators, and students alike.</p>
+            <p>We believe that by simplifying administrative tasks, we can help educational institutions allocate more resources to teaching, learning, and student success. Our platform is designed with the future in mind, ensuring scalability and adaptability to meet the evolving needs of modern education.</p>
+        </section>
+
+        <section class="features-section">
+            <h2 class="section-title">Why Choose Our System</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Efficient Management</h3>
+                    <p>Streamline your institution's operations with our comprehensive tools for student data management, attendance tracking, and academic record keeping.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure & Reliable</h3>
+                    <p>Your data's security is our top priority. We implement industry-standard encryption and regular backups to ensure your information is always safe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Ready</h3>
+                    <p>Access your institution's data anytime, anywhere with our fully responsive design that works seamlessly across all devices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Powerful Analytics</h3>
+                    <p>Make data-driven decisions with our comprehensive reporting and analytics tools that provide valuable insights into student performance and institutional metrics.</p>
+                </div>
             </div>
+        </section>
+
+        <section class="stats-section">
+            <h2 class="section-title">Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">5,000+</span>
+                    <span class="stat-label">Students Served</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Client Satisfaction</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support Available</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Institutions Trust Us</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p>Our dedicated team of education and technology experts is committed to delivering exceptional solutions that transform educational administration.</p>
             
-            <p>This system was developed as part of our commitment to leveraging technology for educational excellence at PNC. We believe in empowering our staff with the best tools to support our students' journey.</p>
-            
-            <p>For more information about Passerelles Numériques Cambodia, please visit our official website.</p>
-        </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/frontend/image/cv.png" alt="Team Member" class="team-avatar">
+                    <h4>Phan Phoun</h4>
+                    <span class="team-role">CEO & Founder</span>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/frontend/image/nita.jpg" alt="Team Member" class="team-avatar">
+                    <h4>Nita</h4>
+                    <span class="team-role">Lead Developer</span>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/frontend/image/sokyang.jpg" alt="Team Member" class="team-avatar">
+                    <h4>Sokyang</h4>
+                    <span class="team-role">UX/UI Designer</span>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="/frontend/image/seyha.jpg" alt="Team Member" class="team-avatar">
+                    <h4>Seyha</h4>
+                    <span class="team-role">Customer Success</span>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-phone-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Transform Your Institution?</h2>
+            <p>Join hundreds of educational institutions that trust our platform to manage their student data efficiently and securely.</p>
+            <a href="contact.html" class="btn btn-outline">Get Started Today</a>
+        </section>
     </div>
 </body>
 </html>
